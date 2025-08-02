@@ -13,6 +13,9 @@ results/
 logs/
 *.log
 
+# working files
+main.ipynb
+
 # OS
 .DS_Store
 Thumbs.db
