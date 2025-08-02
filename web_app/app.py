@@ -168,51 +168,96 @@ def random_movies():
 
 @app.route('/api/compare', methods=['POST'])
 def compare_algorithms():
-    """Compare recommendations across different algorithms"""
+    """Compare recommendations across different algorithms - DEBUG VERSION"""
+    print("🔍 Compare algorithms called")
+    
     if not initialize_models():
+        print("❌ Models not initialized")
         return jsonify({'error': 'Models not initialized'}), 500
     
     try:
         data = request.get_json()
+        print(f"📥 Received data: {data}")
+        
         user_ratings = data.get('ratings', {})
+        print(f"👤 User ratings: {user_ratings}")
+        print(f"📊 Number of ratings: {len(user_ratings)}")
         
         if not user_ratings:
+            print("❌ No ratings provided")
             return jsonify({'error': 'No ratings provided'}), 400
         
+        print(f"✅ Available models: {list(models.keys())}")
+        print(f"📊 Data shape: {X_incomplete.shape}")
+        
         # Create user vector
+        print("🔧 Creating user vector...")
         user_vector = np.full(X_incomplete.shape[1], np.nan)
         for movie_id, rating in user_ratings.items():
-            user_vector[int(movie_id)] = float(rating)
+            try:
+                idx = int(movie_id)
+                val = float(rating)
+                user_vector[idx] = val
+                print(f"  Set movie {idx} = {val}")
+            except Exception as e:
+                print(f"❌ Error setting rating {movie_id}={rating}: {e}")
+                return jsonify({'error': f'Invalid rating: {movie_id}={rating}'}), 400
         
         user_matrix = user_vector.reshape(1, -1)
         unrated_indices = np.where(np.isnan(user_vector))[0]
+        print(f"📊 Unrated movies: {len(unrated_indices)}")
         
         comparison_results = {}
         
+        # Test each model one by one
         for algo_name, model in models.items():
+            print(f"🧪 Testing {algo_name}...")
+            
             try:
+                # Test prediction
                 predictions = model.predict(user_matrix)[0]
+                print(f"  ✅ {algo_name}: predictions shape {predictions.shape}")
+                
+                # Get top unrated predictions
+                if len(unrated_indices) == 0:
+                    print(f"  ⚠️ {algo_name}: No unrated movies")
+                    comparison_results[algo_name] = []
+                    continue
+                
                 unrated_predictions = predictions[unrated_indices]
                 top_indices = unrated_indices[np.argsort(unrated_predictions)[-5:]][::-1]
                 
                 algo_recommendations = []
                 for idx in top_indices:
-                    movie_info = data_loader.get_movie_info(idx)
-                    algo_recommendations.append({
-                        'movie_id': int(idx),
-                        'title': movie_info['title'],
-                        'predicted_rating': float(predictions[idx])
-                    })
+                    try:
+                        movie_info = data_loader.get_movie_info(idx)
+                        algo_recommendations.append({
+                            'movie_id': int(idx),
+                            'title': movie_info['title'],
+                            'predicted_rating': float(predictions[idx])
+                        })
+                    except Exception as e:
+                        print(f"  ⚠️ Error getting movie {idx}: {e}")
+                        continue
                 
                 comparison_results[algo_name] = algo_recommendations
+                print(f"  ✅ {algo_name}: {len(algo_recommendations)} recommendations")
                 
             except Exception as e:
+                print(f"  ❌ {algo_name} failed: {str(e)}")
+                import traceback
+                traceback.print_exc()
                 comparison_results[algo_name] = {'error': str(e)}
         
+        print(f"🎯 Returning results for {len(comparison_results)} algorithms")
         return jsonify(comparison_results)
         
     except Exception as e:
+        print(f"❌ Compare API error: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': f'Internal server error: {str(e)}'}), 500
+
 
 @app.route('/api/algorithm_info')
 def get_algorithm_info():
