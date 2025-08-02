@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome to the Netflix Recommendation Engine</h2>
+    <p>This application demonstrates advanced machine learning algorithms for collaborative filtering and movie recommendations.</p>
+    
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value">5</div>
+            <div class="metric-label">ML Algorithms</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">1200×1200</div>
+            <div class="metric-label">Dataset Size</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">95%</div>
+            <div class="metric-label">Data Sparsity</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">Real-time</div>
+            <div class="metric-label">Predictions</div>
+        </div>
+    </div>
+    
+    <h3>Available Algorithms</h3>
+    <div class="algorithm-grid">
+        <div class="card">
+            <h4>🔮 EM Clustering</h4>
+            <p>Uses Gaussian Mixture Models to cluster users by preferences, then recommends based on cluster means.</p>
+        </div>
+        
+        <div class="card">
+            <h4>👥 KNN User-based</h4>
+            <p>Finds similar users and recommends movies they liked. Classic collaborative filtering approach.</p>
+        </div>
+        
+        <div class="card">
+            <h4>🎭 KNN Item-based</h4>
+            <p>Finds similar movies based on user rating patterns. Recommends movies similar to ones you liked.</p>
+        </div>
+        
+        <div class="card">
+            <h4>📊 Matrix Factorization</h4>
+            <p>Decomposes the rating matrix to discover latent factors, enabling sophisticated recommendations.</p>
+        </div>
+        
+        <div class="card">
+            <h4>📈 Mean Imputation</h4>
+            <p>Simple baseline that recommends popular movies. Used for comparison with advanced methods.</p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{{ url_for('rate_movies') }}" class="btn btn-success">Start Rating Movies</a>
+        <a href="{{ url_for('algorithm_comparison') }}" class="btn">Compare Algorithms</a>
+    </div>
+</div>
+
+<div class="card">
+    <h2>How It Works</h2>
+    <ol>
+        <li><strong>Rate Movies:</strong> Give star ratings to movies you've seen</li>
+        <li><strong>Choose Algorithm:</strong> Select which ML algorithm to use</li>
+        <li><strong>Get Recommendations:</strong> See personalized movie suggestions</li>
+        <li><strong>Compare Results:</strong> See how different algorithms recommend differently</li>
+    </ol>
+    
+    <div class="alert alert-info">
+        <strong>Note:</strong> This demo uses synthetic movie names for demonstration. 
+        The underlying algorithms work with numerical features from a real Netflix dataset structure.
+    </div>
+</div>
+{% endblock %}
