@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}About - Netflix Recommender{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>About This Project</h2>
+    <p>This Netflix Recommendation Engine demonstrates multiple machine learning approaches to collaborative filtering and matrix completion.</p>
+    
+    <h3>🎯 Project Goals</h3>
+    <ul>
+        <li>Compare different recommendation algorithms</li>
+        <li>Handle sparse rating matrices (95% missing data)</li>
+        <li>Provide real-time personalized recommendations</li>
+        <li>Demonstrate practical ML implementation</li>
+    </ul>
+    
+    <h3>🧮 Algorithms Implemented</h3>
+    
+    <div class="card">
+        <h4>Expectation-Maximization (EM) Clustering</h4>
+        <p><strong>Approach:</strong> Uses Gaussian Mixture Models to cluster users by their rating patterns.</p>
+        <p><strong>How it works:</strong> Groups users into clusters, then predicts missing ratings using cluster-specific means.</p>
+        <p><strong>Best for:</strong> Discovering user archetypes and handling diverse preferences.</p>
+    </div>
+    
+    <div class="card">
+        <h4>K-Nearest Neighbors (KNN)</h4>
+        <p><strong>User-based:</strong> Finds users with similar rating patterns and averages their ratings.</p>
+        <p><strong>Item-based:</strong> Finds movies with similar rating patterns and recommends accordingly.</p>
+        <p><strong>Best for:</strong> Interpretable recommendations based on similarity.</p>
+    </div>
+    
+    <div class="card">
+        <h4>Matrix Factorization</h4>
+        <p><strong>Approach:</strong> Decomposes the user-movie rating matrix into latent factors.</p>
+        <p><strong>Methods:</strong> Non-negative Matrix Factorization (NMF) and Singular Value Decomposition (SVD).</p>
+        <p><strong>Best for:</strong> Capturing complex patterns and achieving high accuracy.</p>
+    </div>
+    
+    <h3>📊 Dataset Information</h3>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value">1200</div>
+            <div class="metric-label">Users</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">1200</div>
+            <div class="metric-label">Movies</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">1.44M</div>
+            <div class="metric-label">Possible Ratings</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">~72K</div>
+            <div class="metric-label">Actual Ratings</div>
+        </div>
+    </div>
+    
+    <h3>🔧 Technical Implementation</h3>
+    <ul>
+        <li><strong>Backend:</strong> Python Flask with scikit-learn</li>
+        <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+        <li><strong>ML Libraries:</strong> scikit-learn, NumPy, pandas</li>
+        <li><strong>Data Processing:</strong> Sparse matrix handling, synthetic movie mapping</li>
+    </ul>
+    
+    <h3>⚠️ Important Notes</h3>
+    <div class="alert alert-info">
+        <p><strong>Synthetic Movie Names:</strong> This demo uses generated movie titles for user experience. The underlying algorithms work with numerical features from a real Netflix dataset structure.</p>
+        <p><strong>Performance:</strong> Models are optimized for web responsiveness. Full-scale versions use larger parameters for better accuracy.</p>
+    </div>
+    
+    <h3>🚀 Try It Out</h3>
+    <p>Ready to see how these algorithms work? Start by rating some movies!</p>
+    <div style="text-align: center;">
+        <a href="{{ url_for('rate_movies') }}" class="btn btn-success">Rate Movies Now</a>
+    </div>
+</div>
+{% endblock %}
