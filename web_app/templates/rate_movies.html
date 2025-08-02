@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Rate Movies - Netflix Recommender{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Rate Some Movies</h2>
+    <p>Rate movies you've seen to get personalized recommendations. Click the stars to rate!</p>
+    
+    <div id="ratingCounter" class="alert alert-info">0 movies rated</div>
+    
+    <div class="algorithm-selector">
+        <button class="algorithm-btn active" data-algorithm="em">EM Clustering</button>
+        <button class="algorithm-btn" data-algorithm="knn_user">KNN User-based</button>
+        <button class="algorithm-btn" data-algorithm="knn_item">KNN Item-based</button>
+        <button class="algorithm-btn" data-algorithm="matrix_nmf">Matrix Factorization</button>
+        <button class="algorithm-btn" data-algorithm="mean">Mean Imputation</button>
+    </div>
+    
+    <div class="movie-grid">
+        {% for movie in movies %}
+        <div class="movie-item">
+            <div class="movie-title">{{ movie.title }}</div>
+            <div class="movie-info">{{ movie.genre }} • {{ movie.year }} • Feature #{{ movie.feature_id }}</div>
+            
+            <div class="rating-stars">
+                {% for i in range(1, 6) %}
+                <span class="star" data-movie-id="{{ movie.feature_id }}" data-rating="{{ i }}">⭐</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div style="text-align: center; margin: 2rem 0;">
+        <button id="getRecommendations" class="btn btn-success" disabled>Get My Recommendations</button>
+        <a href="{{ url_for('rate_movies') }}" class="btn">Load More Movies</a>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Your Recommendations</h2>
+    <div id="recommendations">
+        <p class="loading">Rate some movies above to see personalized recommendations!</p>
+    </div>
+</div>
+{% endblock %}
