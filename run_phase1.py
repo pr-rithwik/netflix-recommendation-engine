@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-"""
-Phase 1 Execution Script
-"""
-
 import os
 import sys
 import numpy as np
@@ -244,12 +239,6 @@ def main():
         print("\n" + "="*60)
         print("🎉 PHASE 1 COMPLETED SUCCESSFULLY!")
         print("="*60)
-        print("\n📋 NEXT STEPS:")
-        print("1. Review results in results/ directory")
-        print("2. Check baseline_comparison.csv for detailed metrics")
-        print("3. Examine plots in results/evaluation_plots/")
-        print("4. Ready to proceed to Phase 2 (Web Interface)")
-        print("\n🚀 To start Phase 2, let me know and I'll provide the web app code!")
         
         return 0
         
