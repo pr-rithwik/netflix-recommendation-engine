@@ -1,9 +1,17 @@
 import os
+# Base directory should be the one containing the actual data folder
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # <- still points to /web_app/
+BASE_DIR = os.path.join(BASE_DIR, 'netflix-recommendation-engine-main')  # Add one more level
+
+# Correct absolute paths
+DATA_PATH = os.path.join(BASE_DIR, 'data')
+RESULTS_PATH = os.path.join(BASE_DIR, 'results')
+MODELS_PATH = os.path.join(BASE_DIR, 'models')
 
 # Data paths
-DATA_PATH = "data"
-RESULTS_PATH = "results"
-MODELS_PATH = "models"
+# DATA_PATH = "data"
+# RESULTS_PATH = "results"
+# MODELS_PATH = "models"
 
 # Dataset configuration
 N_USERS = 1200
