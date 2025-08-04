@@ -8,12 +8,27 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
 });
 
+function handleStarMouseOut(event) {
+    const movieId = event.target.dataset.movieId;
+    const rating = userRatings[movieId] || 0;
+
+    // Restore based on actual rating (if any)
+    const stars = document.querySelectorAll(`[data-movie-id="${movieId}"]`);
+    stars.forEach(s => {
+        const r = parseInt(s.dataset.rating);
+        s.style.color = r <= rating ? '#ffd700' : '#ddd';
+    });
+}
+
+
 function initializeEventListeners() {
     // Star rating functionality
     const stars = document.querySelectorAll('.star');
+   
     stars.forEach(star => {
         star.addEventListener('click', handleStarClick);
         star.addEventListener('mouseover', handleStarHover);
+        star.addEventListener('mouseout', handleStarMouseOut);
     });
     
     // Algorithm selector
@@ -56,11 +71,14 @@ function handleStarHover(event) {
     const star = event.target;
     const movieId = star.dataset.movieId;
     const rating = parseInt(star.dataset.rating);
-    
-    // Temporarily highlight stars on hover
-    highlightStars(movieId, rating);
-}
 
+    // Highlight stars up to hovered one
+    const stars = document.querySelectorAll(`[data-movie-id="${movieId}"]`);
+    stars.forEach(s => {
+        const r = parseInt(s.dataset.rating);
+        s.style.color = r <= rating ? '#ffd700' : '#ddd';
+    });
+}
 function handleAlgorithmChange(event) {
     const btn = event.target;
     const algorithm = btn.dataset.algorithm;
@@ -92,17 +110,17 @@ function updateStarDisplay(movieId, rating) {
     });
 }
 
-function highlightStars(movieId, rating) {
-    const stars = document.querySelectorAll(`[data-movie-id="${movieId}"]`);
-    stars.forEach(star => {
-        const starRating = parseInt(star.dataset.rating);
-        if (starRating <= rating) {
-            star.style.color = '#ffd700';
-        } else {
-            star.style.color = '#ddd';
-        }
-    });
-}
+// function highlightStars(movieId, rating) {
+//     const stars = document.querySelectorAll(`[data-movie-id="${movieId}"]`);
+//     stars.forEach(star => {
+//         const starRating = parseInt(star.dataset.rating);
+//         if (starRating <= rating) {
+//             star.style.color = '#ffd700';
+//         } else {
+//             star.style.color = '#ddd';
+//         }
+//     });
+// }
 
 function updateRatingCounter() {
     const counter = document.getElementById('ratingCounter');
