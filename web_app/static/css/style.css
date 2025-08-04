@@ -117,18 +117,22 @@ body {
     margin: 0.5rem 0;
 }
 
+/* Default gray/white stars */
 .star {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #ddd;
-    transition: color 0.2s;
+  color: #ccc;           /* empty/gray by default */
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .star:hover,
-.star.active {
-    color: #ffd700;
+.star.hover {
+  color: gold;           /* hover effect */
 }
 
+.star.active {
+  color: gold;           /* selected/clicked */
+}
 /* Buttons */
 .btn {
     background: #3498db;
