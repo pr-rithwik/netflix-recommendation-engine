@@ -16,6 +16,9 @@ logs/
 # working files
 main.ipynb
 
+# folders
+extra/
+
 # OS
 .DS_Store
 Thumbs.db
