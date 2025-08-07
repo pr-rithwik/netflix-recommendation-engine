@@ -84,7 +84,7 @@ Visit `http://localhost:5000` to interact with the algorithm comparison interfac
 
 **Key Insights:**
 - **Item-based KNN** achieved best accuracy with manageable training time
-- **SVD** offers excellent speed-accuracy balance (60x faster than NMF)
+- **SVD** offers excellent speed-accuracy balance (39x faster than NMF)
 - **EM Clustering** provides most interpretable user segments
 - **NMF** significantly underperformed compared to SVD
 
