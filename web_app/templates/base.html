@@ -3,31 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Netflix Recommendation Engine{% endblock %}</title>
+    <title>{% block title %}Algorithm Performance Demonstrator{% endblock %}</title>
+    <meta name="description" content="Interactive demonstration of machine learning algorithms for collaborative filtering and recommendation systems">
+    <meta name="keywords" content="machine learning, collaborative filtering, recommendation systems, algorithm comparison, data science">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="{% block og_title %}Algorithm Performance Demonstrator{% endblock %}">
+    <meta property="og:description" content="Compare machine learning algorithms for collaborative filtering through interactive demonstration">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    
+    {% block head_extra %}{% endblock %}
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>🎬 Netflix Recommendation Engine</h1>
-            <p>Intelligent Movie Recommendations using Machine Learning</p>
+            <h1>🔬 Algorithm Performance Demonstrator</h1>
+            <p>Interactive Comparison of Machine Learning Approaches to Collaborative Filtering</p>
+            <div class="project-context">
+                <span class="series-badge">Build Beyond Series</span>
+                <span class="project-type">Educational Research Tool</span>
+            </div>
         </header>
         
         <nav class="nav">
             <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('rate_movies') }}">Rate Movies</a></li>
-                <li><a href="{{ url_for('algorithm_comparison') }}">Compare Algorithms</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('index') }}" data-nav="home">
+                    🏠 Home
+                </a></li>
+                <li><a href="{{ url_for('algorithm_demonstrator') }}" data-nav="demonstrator">
+                    🔬 Compare Algorithms
+                </a></li>
+                <li><a href="{{ url_for('performance_metrics') }}" data-nav="performance">
+                    📊 Performance Data
+                </a></li>
+                <li><a href="{{ url_for('about') }}" data-nav="about">
+                    ℹ️ About Project
+                </a></li>
+                <li><a href="https://github.com/pr-rithwik/netflix-recommendation-engine" target="_blank" rel="noopener noreferrer">
+                    💻 View Code
+                </a></li>
             </ul>
         </nav>
+        
+        <!-- System Status Indicator -->
+        <div id="systemStatus" class="system-status" style="display: none;">
+            <div class="status-indicator">
+                <span id="statusDot" class="status-dot"></span>
+                <span id="statusText">Checking system status...</span>
+            </div>
+        </div>
+        
+        <!-- Alert Container for Dynamic Messages -->
+        <div id="alertContainer" class="alert-container"></div>
         
         <main>
             {% block content %}{% endblock %}
         </main>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Build Beyond Series</h4>
+                    <p>This project expands on an MIT course implementation by comparing multiple ML algorithms systematically.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Dataset Information</h4>
+                    <ul>
+                        <li>1200 × 1200 user-item matrix</li>
+                        <li>1,111,768 observed ratings</li>
+                        <li>22.8% sparsity (realistic density)</li>
+                        <li>5-point rating scale</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Algorithm Performance</h4>
+                    <ul>
+                        <li><strong>Winner:</strong> KNN Item-based (0.467 RMSE)</li>
+                        <li><strong>Fastest:</strong> SVD (0.20s training)</li>
+                        <li><strong>Most Interpretable:</strong> EM Clustering</li>
+                        <li><strong>Baseline:</strong> Mean Imputation</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/pr-rithwik/netflix-recommendation-engine" target="_blank">GitHub Repository</a></li>
+                        <li><a href="#" id="downloadResults">Download Results (JSON)</a></li>
+                        <li><a href="mailto:contact@example.com">Contact Author</a></li>
+                        <li><a href="#" id="citationInfo">Citation Information</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Algorithm Performance Demonstrator | Part of the Build Beyond Series</p>
+                <p>Educational research tool for understanding collaborative filtering algorithms</p>
+                <div class="footer-links">
+                    <a href="#" id="privacyPolicy">Privacy Policy</a> |
+                    <a href="#" id="termsOfUse">Terms of Use</a> |
+                    <a href="https://github.com/pr-rithwik/netflix-recommendation-engine/blob/main/LICENSE" target="_blank">MIT License</a>
+                </div>
+            </div>
+        </footer>
     </div>
     
+    <!-- Base JavaScript - Always Loaded -->
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    
+    <!-- Legacy Script Support -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <!-- Page-specific Scripts -->
     {% block scripts %}{% endblock %}
 </body>
 </html>
