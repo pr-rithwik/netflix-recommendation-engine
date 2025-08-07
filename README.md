@@ -113,6 +113,8 @@ Visit `http://localhost:5000` to interact with the algorithm comparison interfac
 
 **Important**: The web interface uses abstract item naming (Item_001, Item_002, etc.) to focus on algorithm comparison rather than content recommendations. This maintains scientific integrity while avoiding misleading content associations.
 
+**Live Demo**: Experience the algorithm comparison tool at [this link](your-deployment-url).
+
 ### Features:
 - **Interactive Rating Interface**: Rate items and see algorithm predictions
 - **Side-by-Side Comparison**: Observe how different algorithms behave with identical input
