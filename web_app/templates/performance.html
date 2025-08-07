@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}Performance Metrics - Algorithm Performance Demonstrator{% endblock %}
+
+{% block og_title %}Performance Metrics - Detailed Algorithm Comparison Results{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>📊 Algorithm Performance Metrics</h2>
+    <p class="performance-intro">
+        Detailed performance analysis of 6 machine learning algorithms tested on a 1200×1200 Netflix-style dataset. 
+        All algorithms were evaluated using identical data preprocessing, training procedures, and evaluation metrics to ensure fair comparison.
+    </p>
+    
+    <div class="performance-summary">
+        <div class="summary-stats">
+            <div class="stat-box winner">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-content">
+                    <h3>Best Algorithm</h3>
+                    <p>KNN Item-based</p>
+                    <span class="stat-value">0.467 RMSE</span>
+                </div>
+            </div>
+            
+            <div class="stat-box speed">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-content">
+                    <h3>Fastest Training</h3>
+                    <p>SVD Matrix Factorization</p>
+                    <span class="stat-value">0.20s</span>
+                </div>
+            </div>
+            
+            <div class="stat-box dataset">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <h3>Dataset Density</h3>
+                    <p>Realistic sparsity level</p>
+                    <span class="stat-value">22.8%</span>
+                </div>
+            </div>
+            
+            <div class="stat-box predictions">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-content">
+                    <h3>Total Predictions</h3>
+                    <p>Per algorithm evaluation</p>
+                    <span class="stat-value">1.44M</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>📈 Complete Performance Results</h3>
+    <div class="performance-controls">
+        <div class="control-group">
+            <label for="sortMetric">Sort by:</label>
+            <select id="sortMetric">
+                <option value="rmse">RMSE (Best first)</option>
+                <option value="mae">MAE (Best first)</option>
+                <option value="r2_score">R² Score (Best first)</option>
+                <option value="training_time">Training Time (Fastest first)</option>
+                <option value="name">Algorithm Name</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="highlightMetric">Highlight:</label>
+            <select id="highlightMetric">
+                <option value="none">None</option>
+                <option value="best_rmse">Best RMSE</option>
+                <option value="best_mae">Best MAE</option>
+                <option value="best_r2">Best R²</option>
+                <option value="fastest">Fastest</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <button id="downloadResults" class="btn btn-secondary">📥 Download CSV</button>
+        </div>
+    </div>
+    
+    <div class="performance-table-container">
+        <div id="performanceTableLoading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading performance data...</p>
+        </div>
+        
+        <table id="performanceTable" class="performance-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th data-sort="name">Algorithm</th>
+                    <th data-sort="rmse" class="sortable">RMSE <span class="sort-arrow">↕️</span></th>
+                    <th data-sort="mae" class="sortable">MAE <span class="sort-arrow">↕️</span></th>
+                    <th data-sort="r2_score" class="sortable">R² Score <span class="sort-arrow">↕️</span></th>
+                    <th data-sort="training_time" class="sortable">Training Time <span class="sort-arrow">↕️</span></th>
+                    <th>Performance Rank</th>
+                </tr>
+            </thead>
+            <tbody id="performanceTableBody">
+                <!-- Performance data will be loaded here -->
+            </tbody>
+        </table>
+        
+        <div id="performanceTableError" class="alert alert-error" style="display: none;">
+            <h4>Performance Data Unavailable</h4>
+            <p>Performance metrics could not be loaded. This may happen if:</p>
+            <ul>
+                <li>The Phase 1 evaluation hasn't been run yet</li>
+                <li>Results files are missing from the results directory</li>
+                <li>System is still initializing</li>
+            </ul>
+            <p>Please ensure you've run <code>python run_phase1.py</code> to generate performance data.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>📊 Performance Analysis</h3>
+    <div class="analysis-section" id="performanceAnalysis">
+        <div class="loading">Loading analysis...</div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🔍 Detailed Insights</h3>
+    <div class="insights-grid">
+        <div class="insight-card accuracy">
+            <h4>🎯 Accuracy Comparison</h4>
+            <div class="insight-content">
+                <p><strong>Winner:</strong> KNN Item-based achieved the lowest RMSE (0.467), demonstrating superior prediction accuracy.</p>
+                <p><strong>Surprise:</strong> Simple neighbor-based methods outperformed complex matrix factorization approaches.</p>
+                <p><strong>Gap:</strong> Winner improved baseline by only 8.1%, showing the challenge of beating simple approaches.</p>
+            </div>
+            <div class="insight-chart" id="accuracyChart">
+                <!-- Chart placeholder -->
+                <div class="chart-placeholder">RMSE Comparison Chart</div>
+            </div>
+        </div>
+        
+        <div class="insight-card speed">
+            <h4>⚡ Speed Analysis</h4>
+            <div class="insight-content">
+                <p><strong>Fastest:</strong> SVD completed training in just 0.20s - 39× faster than NMF.</p>
+                <p><strong>Trade-off:</strong> SVD achieved 99.6% of winner's accuracy in 4% of the training time.</p>
+                <p><strong>Practical:</strong> For real-time systems, SVD offers the best speed-accuracy balance.</p>
+            </div>
+            <div class="insight-chart" id="speedChart">
+                <div class="chart-placeholder">Training Time Comparison</div>
+            </div>
+        </div>
+        
+        <div class="insight-card interpretability">
+            <h4>🔮 Interpretability Focus</h4>
+            <div class="insight-content">
+                <p><strong>Most Interpretable:</strong> EM Clustering provides clear user segments and explainable predictions.</p>
+                <p><strong>Performance Cost:</strong> Interpretability came with minimal accuracy loss (0.503 vs 0.467 RMSE).</p>
+                <p><strong>Business Value:</strong> User segments enable targeted marketing and personalization strategies.</p>
+            </div>
+            <div class="insight-chart" id="interpretabilityChart">
+                <div class="chart-placeholder">Accuracy vs Interpretability</div>
+            </div>
+        </div>
+        
+        <div class="insight-card robustness">
+            <h4>🛡️ Algorithm Robustness</h4>
+            <div class="insight-content">
+                <p><strong>Consistent:</strong> Top 4 algorithms clustered within 4% RMSE range, showing dataset stability.</p>
+                <p><strong>Outlier:</strong> NMF performed significantly worse (0.882 RMSE), suggesting poor fit for this dataset.</p>
+                <p><strong>Reliability:</strong> Multiple algorithms achieved similar performance, reducing single-algorithm risk.</p>
+            </div>
+            <div class="insight-chart" id="robustnessChart">
+                <div class="chart-placeholder">Performance Distribution</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🎯 Key Findings Summary</h3>
+    <div class="findings-summary">
+        <div class="finding-major">
+            <h4>🏆 Major Finding: Simple Algorithms Can Win</h4>
+            <p>KNN Item-based (a conceptually simple neighbor-based approach) outperformed sophisticated matrix factorization methods. This challenges the assumption that algorithmic complexity correlates with performance and highlights the importance of systematic evaluation.</p>
+        </div>
+        
+        <div class="finding-implications">
+            <h4>💡 Practical Implications</h4>
+            <div class="implications-grid">
+                <div class="implication-item">
+                    <strong>For Practitioners:</strong> Always include simple baselines in ML comparisons - they may surprise you.
+                </div>
+                <div class="implication-item">
+                    <strong>For System Design:</strong> Consider SVD for latency-critical applications requiring good accuracy.
+                </div>
+                <div class="implication-item">
+                    <strong>For Business:</strong> EM clustering provides actionable user insights alongside competitive performance.
+                </div>
+                <div class="implication-item">
+                    <strong>For Research:</strong> Algorithm performance is highly dataset-dependent - comprehensive evaluation is essential.
+                </div>
+            </div>
+        </div>
+        
+        <div class="finding-methodology">
+            <h4>🔬 Methodological Notes</h4>
+            <ul>
+                <li><strong>Fair Comparison:</strong> All algorithms used identical preprocessing, validation, and evaluation procedures</li>
+                <li><strong>Realistic Dataset:</strong> 22.8% sparsity reflects real-world recommendation system density</li>
+                <li><strong>Multiple Metrics:</strong> RMSE, MAE, and R² provide comprehensive accuracy assessment</li>
+                <li><strong>Timing Analysis:</strong> Training time measured for computational efficiency evaluation</li>
+                <li><strong>Statistical Rigor:</strong> Consistent random seeds ensure reproducible results</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🔗 Research Context</h3>
+    <div class="research-context">
+        <div class="context-section">
+            <h4>📚 Academic Background</h4>
+            <p>This systematic comparison extends traditional collaborative filtering research by providing hands-on performance analysis across multiple algorithm families. The results contribute to understanding practical algorithm selection for recommendation systems.</p>
+        </div>
+        
+        <div class="context-section">
+            <h4>🔬 Methodology Validation</h4>
+            <p>Our evaluation framework follows established ML research practices with consistent preprocessing, cross-validation approaches, and multiple evaluation metrics. The fair comparison methodology ensures reliable performance rankings.</p>
+        </div>
+        
+        <div class="context-section">
+            <h4>🎯 Reproducibility</h4>
+            <p>Complete source code, evaluation scripts, and documentation are available on GitHub. All random seeds, preprocessing steps, and hyperparameters are documented to enable result reproduction.</p>
+        </div>
+        
+        <div class="context-actions">
+            <a href="https://github.com/pr-rithwik/netflix-recommendation-engine" target="_blank" class="btn btn-primary">
+                💻 View Source Code
+            </a>
+            <a href="{{ url_for('algorithm_demonstrator') }}" class="btn btn-secondary">
+                🔬 Try Interactive Demo
+            </a>
+            <button id="citationButton" class="btn btn-outline">
+                📝 Get Citation
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card performance-cta">
+    <h3>🚀 Experience the Algorithms Yourself</h3>
+    <p>These performance metrics show how algorithms behave on aggregate data. See how they respond to <strong>your specific preferences</strong> through interactive demonstration.</p>
+    
+    <div class="cta-actions">
+        <a href="{{ url_for('algorithm_demonstrator') }}" class="btn btn-success btn-large">
+            🔬 Try Algorithm Comparison
+        </a>
+        <a href="{{ url_for('about') }}" class="btn btn-outline">
+            📖 Learn More About Methodology
+        </a>
+    </div>
+    
+    <div class="performance-note">
+        <p><strong>Note:</strong> Individual results may vary based on your rating patterns. The interactive demonstrator shows how different algorithms respond to your specific preferences, which may differ from aggregate performance rankings.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/performance.js') }}"></script>
+{% endblock %}
