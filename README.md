@@ -74,17 +74,17 @@ Visit `http://localhost:5000` to interact with the algorithm comparison interfac
 ## 📈 Algorithm Performance Results
 
 | Algorithm | RMSE | MAE | R² Score | Training Time | Status |
-|-----------|------|-----|----------|---------------|--------|
-| **KNN Item-based** | **0.467** | **0.160** | **0.789** | 5.00s | **Winner** |
-| KNN User-based | 0.498 | 0.173 | 0.760 | 4.63s | Strong |
-| Matrix Factorization (SVD) | 0.502 | 0.176 | 0.757 | 0.16s | Fast |
-| EM Clustering | 0.503 | 0.176 | 0.756 | 1.54s | Interpretable |
-| Mean Imputation (Baseline) | 0.508 | 0.179 | 0.750 | 0.05s | Baseline |
-| Matrix Factorization (NMF) | 0.882 | 0.366 | 0.247 | 10.32s | Poor |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **KNN Item-based** | **0.467** | **0.160** | **0.789** | **4.93s** | **Winner** |
+| KNN User-based | 0.498 | 0.173 | 0.760 | 4.57s | Strong |
+| Matrix Factorization (SVD) | 0.502 | 0.176 | 0.757 | 0.20s | Fast |
+| EM Clustering | 0.503 | 0.176 | 0.756 | 1.39s | Interpretable |
+| Mean Imputation (Baseline) | 0.508 | 0.179 | 0.750 | 0.06s | Baseline |
+| Matrix Factorization (NMF) | 0.882 | 0.366 | 0.247 | 7.86s | Poor |
 
 **Key Insights:**
 - **Item-based KNN** achieved best accuracy with manageable training time
-- **SVD** offers excellent speed-accuracy balance (60x faster than NMF)
+- **SVD** offers excellent speed-accuracy balance (39x faster than NMF)
 - **EM Clustering** provides most interpretable user segments
 - **NMF** significantly underperformed compared to SVD
 
@@ -113,7 +113,6 @@ Visit `http://localhost:5000` to interact with the algorithm comparison interfac
 
 **Important**: The web interface uses abstract item naming (Item_001, Item_002, etc.) to focus on algorithm comparison rather than content recommendations. This maintains scientific integrity while avoiding misleading content associations.
 
-**Live Demo**: Experience the algorithm comparison tool at [this link](your-deployment-url).
 
 ### Features:
 - **Interactive Rating Interface**: Rate items and see algorithm predictions

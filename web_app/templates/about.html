@@ -1,81 +1,375 @@
 {% extends "base.html" %}
 
-{% block title %}About - Netflix Recommender{% endblock %}
+{% block title %}About the Project - Algorithm Performance Demonstrator{% endblock %}
+
+{% block og_title %}About Algorithm Performance Demonstrator - Build Beyond Series{% endblock %}
 
 {% block content %}
 <div class="card">
-    <h2>About This Project</h2>
-    <p>This Netflix Recommendation Engine demonstrates multiple machine learning approaches to collaborative filtering and matrix completion.</p>
+    <h2>📚 About This Project</h2>
+    <p class="project-intro">
+        This Algorithm Performance Demonstrator is an educational research tool that compares multiple machine learning approaches to collaborative filtering. It's designed to help students, researchers, and practitioners understand the practical differences between recommendation algorithms through hands-on interaction.
+    </p>
     
-    <h3>🎯 Project Goals</h3>
-    <ul>
-        <li>Compare different recommendation algorithms</li>
-        <li>Handle sparse rating matrices (95% missing data)</li>
-        <li>Provide real-time personalized recommendations</li>
-        <li>Demonstrate practical ML implementation</li>
-    </ul>
-    
-    <h3>🧮 Algorithms Implemented</h3>
-    
-    <div class="card">
-        <h4>Expectation-Maximization (EM) Clustering</h4>
-        <p><strong>Approach:</strong> Uses Gaussian Mixture Models to cluster users by their rating patterns.</p>
-        <p><strong>How it works:</strong> Groups users into clusters, then predicts missing ratings using cluster-specific means.</p>
-        <p><strong>Best for:</strong> Discovering user archetypes and handling diverse preferences.</p>
-    </div>
-    
-    <div class="card">
-        <h4>K-Nearest Neighbors (KNN)</h4>
-        <p><strong>User-based:</strong> Finds users with similar rating patterns and averages their ratings.</p>
-        <p><strong>Item-based:</strong> Finds movies with similar rating patterns and recommends accordingly.</p>
-        <p><strong>Best for:</strong> Interpretable recommendations based on similarity.</p>
-    </div>
-    
-    <div class="card">
-        <h4>Matrix Factorization</h4>
-        <p><strong>Approach:</strong> Decomposes the user-movie rating matrix into latent factors.</p>
-        <p><strong>Methods:</strong> Non-negative Matrix Factorization (NMF) and Singular Value Decomposition (SVD).</p>
-        <p><strong>Best for:</strong> Capturing complex patterns and achieving high accuracy.</p>
-    </div>
-    
-    <h3>📊 Dataset Information</h3>
-    <div class="metrics-grid">
-        <div class="metric-card">
-            <div class="metric-value">1200</div>
-            <div class="metric-label">Users</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value">1200</div>
-            <div class="metric-label">Movies</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value">1.44M</div>
-            <div class="metric-label">Possible Ratings</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value">~72K</div>
-            <div class="metric-label">Actual Ratings</div>
-        </div>
-    </div>
-    
-    <h3>🔧 Technical Implementation</h3>
-    <ul>
-        <li><strong>Backend:</strong> Python Flask with scikit-learn</li>
-        <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
-        <li><strong>ML Libraries:</strong> scikit-learn, NumPy, pandas</li>
-        <li><strong>Data Processing:</strong> Sparse matrix handling, synthetic movie mapping</li>
-    </ul>
-    
-    <h3>⚠️ Important Notes</h3>
-    <div class="alert alert-info">
-        <p><strong>Synthetic Movie Names:</strong> This demo uses generated movie titles for user experience. The underlying algorithms work with numerical features from a real Netflix dataset structure.</p>
-        <p><strong>Performance:</strong> Models are optimized for web responsiveness. Full-scale versions use larger parameters for better accuracy.</p>
-    </div>
-    
-    <h3>🚀 Try It Out</h3>
-    <p>Ready to see how these algorithms work? Start by rating some movies!</p>
-    <div style="text-align: center;">
-        <a href="{{ url_for('rate_movies') }}" class="btn btn-success">Rate Movies Now</a>
+    <div class="project-badges">
+        <span class="badge badge-series">Build Beyond Series</span>
+        <span class="badge badge-type">Educational Research</span>
+        <span class="badge badge-status">Open Source</span>
+        <span class="badge badge-license">MIT License</span>
     </div>
 </div>
+
+<div class="card">
+    <h3>🎯 Project Goals</h3>
+    <div class="goals-grid">
+        <div class="goal-item">
+            <div class="goal-icon">🔍</div>
+            <h4>Algorithm Comparison</h4>
+            <p>Systematically compare 6 different ML algorithms using identical datasets and evaluation metrics to understand their practical trade-offs.</p>
+        </div>
+        
+        <div class="goal-item">
+            <div class="goal-icon">🎓</div>
+            <h4>Educational Value</h4>
+            <p>Provide an interactive learning experience that demonstrates collaborative filtering concepts through direct experimentation rather than theory alone.</p>
+        </div>
+        
+        <div class="goal-item">
+            <div class="goal-icon">📊</div>
+            <h4>Methodological Rigor</h4>
+            <p>Establish fair comparison framework with consistent preprocessing, evaluation metrics, and statistical analysis across all algorithms.</p>
+        </div>
+        
+        <div class="goal-item">
+            <div class="goal-icon">🚀</div>
+            <h4>Beyond Coursework</h4>
+            <p>Demonstrate the "Build Beyond" approach of taking existing projects and expanding their scope with systematic analysis and practical implementation.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🔬 Algorithms Implemented</h3>
+    <div class="algorithms-detailed">
+        <div class="algorithm-detail">
+            <div class="algorithm-header">
+                <h4>🎯 K-Nearest Neighbors (Item-based)</h4>
+                <div class="performance-indicator winner">Winner</div>
+            </div>
+            <div class="algorithm-info">
+                <p><strong>Approach:</strong> Finds items with similar rating patterns and uses their ratings to predict missing values.</p>
+                <p><strong>Implementation:</strong> 30 nearest neighbors, uniform weights, cosine similarity</p>
+                <p><strong>Performance:</strong> 0.467 RMSE, 0.789 R², 4.93s training time</p>
+                <p><strong>Best for:</strong> Stable, interpretable recommendations with good accuracy</p>
+            </div>
+        </div>
+        
+        <div class="algorithm-detail">
+            <div class="algorithm-header">
+                <h4>👥 K-Nearest Neighbors (User-based)</h4>
+                <div class="performance-indicator strong">Strong</div>
+            </div>
+            <div class="algorithm-info">
+                <p><strong>Approach:</strong> Finds users with similar rating patterns and uses their preferences to predict ratings.</p>
+                <p><strong>Implementation:</strong> 30 nearest neighbors, uniform weights, user similarity matrix</p>
+                <p><strong>Performance:</strong> 0.498 RMSE, 0.760 R², 4.57s training time</p>
+                <p><strong>Best for:</strong> Discovering user communities and preference patterns</p>
+            </div>
+        </div>
+        
+        <div class="algorithm-detail">
+            <div class="algorithm-header">
+                <h4>⚡ Matrix Factorization (SVD)</h4>
+                <div class="performance-indicator fast">Fastest</div>
+            </div>
+            <div class="algorithm-info">
+                <p><strong>Approach:</strong> Decomposes the rating matrix using Singular Value Decomposition to find latent factors.</p>
+                <p><strong>Implementation:</strong> 50 components, truncated SVD, handles sparse matrices efficiently</p>
+                <p><strong>Performance:</strong> 0.502 RMSE, 0.757 R², 0.20s training time</p>
+                <p><strong>Best for:</strong> Large-scale systems requiring fast training and good accuracy</p>
+            </div>
+        </div>
+        
+        <div class="algorithm-detail">
+            <div class="algorithm-header">
+                <h4>🔮 Expectation-Maximization Clustering</h4>
+                <div class="performance-indicator interpretable">Interpretable</div>
+            </div>
+            <div class="algorithm-info">
+                <p><strong>Approach:</strong> Uses Gaussian Mixture Models to cluster users and predict ratings based on cluster membership.</p>
+                <p><strong>Implementation:</strong> 10 components, 70 iterations to convergence, BIC model selection</p>
+                <p><strong>Performance:</strong> 0.503 RMSE, 0.756 R², 1.39s training time</p>
+                <p><strong>Best for:</strong> Understanding user segments and providing explainable recommendations</p>
+            </div>
+        </div>
+        
+        <div class="algorithm-detail">
+            <div class="algorithm-header">
+                <h4>📊 Matrix Factorization (NMF)</h4>
+                <div class="performance-indicator specialized">Specialized</div>
+            </div>
+            <div class="algorithm-info">
+                <p><strong>Approach:</strong> Non-negative Matrix Factorization ensuring all factors remain positive.</p>
+                <p><strong>Implementation:</strong> 50 components, multiplicative update rules</p>
+                <p><strong>Performance:</strong> 0.882 RMSE, 0.247 R², 7.86s training time</p>
+                <p><strong>Best for:</strong> Interpretable factors with non-negative constraints</p>
+            </div>
+        </div>
+        
+        <div class="algorithm-detail">
+            <div class="algorithm-header">
+                <h4>📈 Mean Imputation Baseline</h4>
+                <div class="performance-indicator baseline">Baseline</div>
+            </div>
+            <div class="algorithm-info">
+                <p><strong>Approach:</strong> Simple baseline using feature-wise mean imputation for missing ratings.</p>
+                <p><strong>Implementation:</strong> Global mean (3.56) for all missing values</p>
+                <p><strong>Performance:</strong> 0.508 RMSE, 0.750 R², 0.06s training time</p>
+                <p><strong>Best for:</strong> Establishing baseline performance and cold-start scenarios</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>📊 Dataset & Methodology</h3>
+    <div class="methodology-section">
+        <div class="dataset-specs">
+            <h4>Dataset Characteristics</h4>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="spec-label">Matrix Size:</span>
+                    <span class="spec-value">1200 users × 1200 items</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Total Possible Ratings:</span>
+                    <span class="spec-value">1,440,000</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Observed Ratings:</span>
+                    <span class="spec-value">1,111,768</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Sparsity Level:</span>
+                    <span class="spec-value">22.8% (realistic density)</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Rating Scale:</span>
+                    <span class="spec-value">1-5 stars</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Global Mean Rating:</span>
+                    <span class="spec-value">3.56 stars</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="evaluation-methodology">
+            <h4>Evaluation Framework</h4>
+            <ul class="methodology-list">
+                <li><strong>Metrics:</strong> RMSE (Root Mean Square Error), MAE (Mean Absolute Error), R² Score</li>
+                <li><strong>Validation:</strong> Consistent train/test splits across all algorithms</li>
+                <li><strong>Hyperparameters:</strong> Systematic selection using cross-validation where applicable</li>
+                <li><strong>Statistical Analysis:</strong> Performance comparison with confidence intervals</li>
+                <li><strong>Timing:</strong> Training time measurement for computational efficiency analysis</li>
+                <li><strong>Reproducibility:</strong> Fixed random seeds and documented preprocessing steps</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🔬 Key Findings & Insights</h3>
+    <div class="findings-section">
+        <div class="finding-item">
+            <h4>🎯 Simple Algorithms Can Outperform Complex Ones</h4>
+            <p>KNN Item-based (simple neighbor approach) achieved the best performance, outperforming sophisticated matrix factorization methods. This demonstrates that algorithm complexity doesn't always correlate with performance.</p>
+        </div>
+        
+        <div class="finding-item">
+            <h4>⚡ Speed vs. Accuracy Trade-offs Are Real</h4>
+            <p>SVD achieved 99.6% of the winner's accuracy in just 4% of the training time (0.20s vs 4.93s), highlighting the importance of considering both metrics in practical applications.</p>
+        </div>
+        
+        <div class="finding-item">
+            <h4>📊 Matrix Factorization Variants Differ Significantly</h4>
+            <p>SVD vastly outperformed NMF (0.502 vs 0.882 RMSE) while being 39× faster, showing that algorithm choice within the same family matters enormously.</p>
+        </div>
+        
+        <div class="finding-item">
+            <h4>🔮 Interpretability Has Value</h4>
+            <p>EM Clustering provided the most interpretable results through user segments, achieving competitive performance (0.503 RMSE) while offering insights into user behavior patterns.</p>
+        </div>
+        
+        <div class="finding-item">
+            <h4>📈 Baselines Are Essential</h4>
+            <p>Mean Imputation baseline (0.508 RMSE) was surprisingly competitive, with the winner improving by only 8.1%. This highlights the importance of strong baselines in ML evaluation.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🚀 Build Beyond Philosophy</h3>
+    <div class="philosophy-section">
+        <div class="philosophy-intro">
+            <p>This project embodies the <strong>"Build Beyond"</strong> approach to learning and development: taking existing work and systematically expanding its scope to create something more valuable than the sum of its parts.</p>
+        </div>
+        
+        <div class="evolution-timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker phase-1">1</div>
+                <div class="timeline-content">
+                    <h4>MIT Course Foundation</h4>
+                    <p>Started with an MIT online course project implementing EM algorithm for collaborative filtering. Learned the theoretical foundations and basic implementation.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker phase-2">2</div>
+                <div class="timeline-content">
+                    <h4>Systematic Expansion</h4>
+                    <p>Added 5 additional algorithms, created consistent evaluation framework, and implemented comprehensive performance comparison with statistical rigor.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker phase-3">3</div>
+                <div class="timeline-content">
+                    <h4>Interactive Demonstration</h4>
+                    <p>Built web-based demonstrator for hands-on algorithm exploration, transforming a coding exercise into an educational research tool.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker phase-future">?</div>
+                <div class="timeline-content">
+                    <h4>Future Extensions</h4>
+                    <p>Planned expansions include neural collaborative filtering, transformer-based approaches, and real-time streaming recommendation systems.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>⚠️ Limitations & Context</h3>
+    <div class="limitations-section">
+        <div class="alert alert-warning">
+            <h4>🎯 Educational Focus</h4>
+            <p>This tool is designed for learning and research purposes. Results are specific to this dataset and should not be generalized to all recommendation scenarios without proper validation.</p>
+        </div>
+        
+        <div class="limitation-item">
+            <h4>Dataset Specificity</h4>
+            <p>Performance results reflect behavior on a specific 1200×1200 matrix with 22.8% density. Different datasets, sparsity levels, user behaviors, and item characteristics may favor different algorithms.</p>
+        </div>
+        
+        <div class="limitation-item">
+            <h4>Synthetic Item Names</h4>
+            <p>Items are labeled abstractly (Item_001, Item_002) to focus attention on collaborative filtering patterns rather than content-based recommendations. This emphasizes algorithm behavior over domain knowledge.</p>
+        </div>
+        
+        <div class="limitation-item">
+            <h4>Hyperparameter Choices</h4>
+            <p>Algorithm parameters were chosen for demonstration purposes and may not be optimal for all use cases. In production systems, extensive hyperparameter tuning would be essential.</p>
+        </div>
+        
+        <div class="limitation-item">
+            <h4>Evaluation Scope</h4>
+            <p>Evaluation focuses on prediction accuracy metrics (RMSE, MAE, R²). Production systems would also consider diversity, novelty, serendipity, and other recommendation quality factors.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🛠️ Technical Implementation</h3>
+    <div class="implementation-details">
+        <div class="tech-section">
+            <h4>Backend Architecture</h4>
+            <ul>
+                <li><strong>Framework:</strong> Flask web application with RESTful API design</li>
+                <li><strong>ML Libraries:</strong> Scikit-learn, NumPy, Pandas for algorithm implementation</li>
+                <li><strong>Data Processing:</strong> Efficient sparse matrix operations and memory optimization</li>
+                <li><strong>Model Serving:</strong> In-memory model caching for real-time predictions</li>
+            </ul>
+        </div>
+        
+        <div class="tech-section">
+            <h4>Frontend Interface</h4>
+            <ul>
+                <li><strong>Design:</strong> Responsive CSS with modern gradient aesthetics</li>
+                <li><strong>Interactivity:</strong> Vanilla JavaScript for algorithm comparison interface</li>
+                <li><strong>UX:</strong> Step-by-step workflow with clear visual feedback</li>
+                <li><strong>Accessibility:</strong> Keyboard navigation and screen reader compatibility</li>
+            </ul>
+        </div>
+        
+        <div class="tech-section">
+            <h4>Code Quality</h4>
+            <ul>
+                <li><strong>Modularity:</strong> Separate modules for each algorithm with consistent interfaces</li>
+                <li><strong>Documentation:</strong> Comprehensive docstrings and code comments</li>
+                <li><strong>Testing:</strong> Systematic evaluation framework with reproducible results</li>
+                <li><strong>Version Control:</strong> Git-based development with clear commit history</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>📖 Resources & References</h3>
+    <div class="resources-section">
+        <div class="resource-category">
+            <h4>🔗 Project Resources</h4>
+            <ul>
+                <li><a href="https://github.com/pr-rithwik/netflix-recommendation-engine" target="_blank">GitHub Repository</a> - Complete source code and documentation</li>
+                <li><a href="{{ url_for('algorithm_demonstrator') }}">Algorithm Demonstrator</a> - Interactive comparison tool</li>
+                <li><a href="{{ url_for('performance_metrics') }}">Performance Data</a> - Detailed metrics and analysis</li>
+                <li><a href="#" id="technicalPaper">Technical Report</a> - In-depth methodology and results</li>
+            </ul>
+        </div>
+        
+        <div class="resource-category">
+            <h4>📚 Learning Resources</h4>
+            <ul>
+                <li><a href="https://web.stanford.edu/~hastie/Papers/matrix_completion.pdf" target="_blank">Matrix Completion Research</a></li>
+                <li><a href="https://surprise.readthedocs.io/" target="_blank">Surprise Library Documentation</a></li>
+                <li><a href="https://www.cs.cmu.edu/~mgormley/courses/10701-f16/slides/lecture25-collaborative-filtering.pdf" target="_blank">CMU Collaborative Filtering Slides</a></li>
+                <li><a href="https://developers.google.com/machine-learning/recommendation" target="_blank">Google ML Recommendation Guide</a></li>
+            </ul>
+        </div>
+        
+        <div class="resource-category">
+            <h4>🎓 Academic Context</h4>
+            <ul>
+                <li>Original MIT course foundation in machine learning algorithms</li>
+                <li>Extension of Expectation-Maximization implementation</li>
+                <li>Systematic comparison methodology inspired by ML research best practices</li>
+                <li>Educational tool development following interactive learning principles</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="card cta-about">
+    <h3>🚀 Ready to Explore the Algorithms?</h3>
+    <p>Now that you understand the project background and methodology, experience the algorithm differences yourself through interactive demonstration.</p>
+    
+    <div class="about-actions">
+        <a href="{{ url_for('algorithm_demonstrator') }}" class="btn btn-primary btn-large">
+            🔬 Try Algorithm Comparison
+        </a>
+        <a href="{{ url_for('performance_metrics') }}" class="btn btn-secondary">
+            📊 View Detailed Results
+        </a>
+    </div>
+    
+    <div class="contact-info">
+        <p><strong>Questions or feedback?</strong> This is an open-source educational project. Contributions, suggestions, and discussions are welcome on GitHub.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/about.js') }}"></script>
 {% endblock %}

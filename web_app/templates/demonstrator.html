@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Algorithm Performance Demonstrator{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🔬 Algorithm Performance Demonstrator</h2>
+    <p>Rate items from our dataset and see how different machine learning algorithms predict your preferences. This demonstrates the core differences between collaborative filtering approaches.</p>
+    
+    <div class="dataset-info">
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-value">{{ dataset_info.users if dataset_info else '1200' }}</span>
+                <span class="info-label">Users</span>
+            </div>
+            <div class="info-item">
+                <span class="info-value">{{ dataset_info.items if dataset_info else '1200' }}</span>
+                <span class="info-label">Items</span>
+            </div>
+            <div class="info-item">
+                <span class="info-value">{{ dataset_info.sparsity if dataset_info else '22.8' }}%</span>
+                <span class="info-label">Sparsity</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="alert alert-info">
+        <strong>Note:</strong> Items are labeled as "Item_001", "Item_002", etc. This focuses attention on algorithm behavior rather than content similarity. The system finds patterns in user rating behaviors, not content features.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Step 1: Rate Some Items</h3>
+    <p>Rate 5-10 items to see meaningful algorithm differences. Click stars to rate!</p>
+    
+    <div id="ratingCounter" class="rating-counter">0 items rated</div>
+    
+    <div class="items-container">
+        <div id="itemsGrid" class="items-grid">
+            <div class="loading">Loading items...</div>
+        </div>
+        
+        <div class="items-controls">
+            <button id="loadMoreItems" class="btn btn-secondary">Load More Items</button>
+            <button id="clearRatings" class="btn btn-outline">Clear All Ratings</button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Step 2: Compare Algorithm Predictions</h3>
+    <p>See how different algorithms predict your preferences for unrated items.</p>
+    
+    <div class="comparison-controls">
+        <button id="compareAll" class="btn btn-primary" disabled>
+            Compare All Algorithms
+        </button>
+        <div class="comparison-options">
+            <label>
+                <input type="checkbox" id="showTimes" checked>
+                Show prediction times
+            </label>
+            <label>
+                <input type="checkbox" id="showDetails" checked>
+                Show algorithm details
+            </label>
+        </div>
+    </div>
+    
+    <div id="comparisonResults" class="comparison-results">
+        <div class="comparison-placeholder">
+            <p>👆 Rate some items above and click "Compare All Algorithms" to see how different ML approaches predict your preferences!</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Algorithm Information</h3>
+    <div class="algorithms-info">
+        <div class="algorithm-card" data-algorithm="knn_item_based">
+            <h4>🎯 KNN Item-based</h4>
+            <p><strong>Approach:</strong> Finds items similar to ones you rated highly</p>
+            <p><strong>Best for:</strong> Stable, interpretable recommendations</p>
+            <div class="performance-badge">Winner: Best RMSE</div>
+        </div>
+        
+        <div class="algorithm-card" data-algorithm="knn_user_based">
+            <h4>👥 KNN User-based</h4>
+            <p><strong>Approach:</strong> Finds users with similar rating patterns</p>
+            <p><strong>Best for:</strong> Discovering user communities</p>
+            <div class="performance-badge">Strong Performance</div>
+        </div>
+        
+        <div class="algorithm-card" data-algorithm="matrix_svd">
+            <h4>⚡ Matrix Factorization (SVD)</h4>
+            <p><strong>Approach:</strong> Finds latent factors in rating patterns</p>
+            <p><strong>Best for:</strong> Speed and scalability</p>
+            <div class="performance-badge">Fastest Training</div>
+        </div>
+        
+        <div class="algorithm-card" data-algorithm="em_clustering">
+            <h4>🔮 EM Clustering</h4>
+            <p><strong>Approach:</strong> Groups users into preference clusters</p>
+            <p><strong>Best for:</strong> Interpretable user segments</p>
+            <div class="performance-badge">Most Interpretable</div>
+        </div>
+        
+        <div class="algorithm-card" data-algorithm="matrix_nmf">
+            <h4>📊 Matrix Factorization (NMF)</h4>
+            <p><strong>Approach:</strong> Non-negative latent factor decomposition</p>
+            <p><strong>Best for:</strong> Positive-only interpretations</p>
+            <div class="performance-badge">Specialized Use</div>
+        </div>
+        
+        <div class="algorithm-card" data-algorithm="mean_imputation">
+            <h4>📈 Mean Imputation</h4>
+            <p><strong>Approach:</strong> Uses average ratings for predictions</p>
+            <p><strong>Best for:</strong> Baseline comparison</p>
+            <div class="performance-badge">Baseline</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🎓 What You'll Learn</h3>
+    <ul class="learning-outcomes">
+        <li><strong>Algorithm Differences:</strong> See how different ML approaches produce different recommendations</li>
+        <li><strong>Collaborative Filtering:</strong> Understand how systems find patterns without content information</li>
+        <li><strong>Performance Trade-offs:</strong> Observe speed vs. accuracy vs. interpretability differences</li>
+        <li><strong>Sparsity Handling:</strong> Learn how algorithms deal with missing data (22.8% density)</li>
+        <li><strong>Practical ML:</strong> Experience the gap between theory and implementation</li>
+    </ul>
+</div>
+
+<!-- Hidden templates for dynamic content -->
+<template id="itemRatingTemplate">
+    <div class="item-card">
+        <div class="item-header">
+            <span class="item-name"></span>
+            <span class="item-id"></span>
+        </div>
+        <div class="rating-stars">
+            <span class="star" data-rating="1">⭐</span>
+            <span class="star" data-rating="2">⭐</span>
+            <span class="star" data-rating="3">⭐</span>
+            <span class="star" data-rating="4">⭐</span>
+            <span class="star" data-rating="5">⭐</span>
+        </div>
+        <div class="current-rating"></div>
+    </div>
+</template>
+
+<template id="algorithmResultTemplate">
+    <div class="algorithm-result">
+        <div class="algorithm-header">
+            <h4 class="algorithm-name"></h4>
+            <div class="algorithm-meta">
+                <span class="prediction-time"></span>
+                <span class="status-indicator"></span>
+            </div>
+        </div>
+        <div class="algorithm-description"></div>
+        <div class="predictions-list"></div>
+        <div class="algorithm-insights"></div>
+    </div>
+</template>
+
+<template id="predictionItemTemplate">
+    <div class="prediction-item">
+        <span class="item-name"></span>
+        <span class="predicted-rating"></span>
+    </div>
+</template>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/demonstrator.js') }}"></script>
+<script>
+// Initialize demonstrator when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔬 Algorithm Performance Demonstrator loaded');
+    initializeDemonstrator();
+});
+</script>
+{% endblock %}

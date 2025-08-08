@@ -48,7 +48,7 @@ class ResultsVisualizer:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             print(f"Plot saved to: {save_path}")
         
-        plt.show()
+        # plt.show()
         return fig
     
     def plot_rating_distribution(self, X_complete: np.ndarray, save_path: str = None):
@@ -79,7 +79,7 @@ class ResultsVisualizer:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             print(f"Plot saved to: {save_path}")
         
-        plt.show()
+        # plt.show()
     
     def plot_sparsity_analysis(self, X_incomplete: np.ndarray, save_path: str = None):
         """Analyze and plot data sparsity patterns"""
@@ -111,7 +111,7 @@ class ResultsVisualizer:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             print(f"Plot saved to: {save_path}")
         
-        plt.show()
+        # plt.show()
         
         # Print summary statistics
         total_possible = X_incomplete.shape[0] * X_incomplete.shape[1]
