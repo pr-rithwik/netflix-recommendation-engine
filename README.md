@@ -5,15 +5,14 @@
 This project provides a systematic comparison of several common collaborative filtering algorithms for recommendation systems. Using a sparse user-item rating matrix inspired by the Netflix dataset, this repository implements and evaluates models based on clustering, nearest neighbors, and matrix factorization. The entire analysis is contained within a single, reproducible Jupyter Notebook.
 
 ## 📊 Key Findings
-
-| Algorithm                  | RMSE    | MAE     | R² Score | Training Time |
-| :------------------------- | :------ | :------ | :------- | :------------ |
-| **KNN Item-based**         | **0.467** | **0.160** | **0.789**  | 4.93s         |
-| KNN User-based             | 0.498   | 0.173   | 0.760    | 4.57s         |
-| Matrix Factorization (SVD) | 0.502   | 0.176   | 0.757    | 0.20s         |
-| EM Clustering              | 0.503   | 0.176   | 0.756    | 1.39s         |
-| Mean Imputation (Baseline) | 0.508   | 0.179   | 0.750    | 0.06s         |
-| Matrix Factorization (NMF) | 0.882   | 0.366   | 0.247    | 7.86s         |
+| Algorithm | RMSE | MAE | R² Score | Training Time |
+| :--- | :--- | :--- | :--- | :--- |
+| KNN Item-based | 0.467 | 0.160 | 0.789 | 10.72s |
+| EM Clustering | 0.484 | 0.169 | 0.773 | 5.04s |
+| KNN User-based | 0.498 | 0.172 | 0.760 | 10.34s |
+| Matrix Factorization (NMF) | 0.499 | 0.174 | 0.760 | 21.17s |
+| Matrix Factorization (SVD) | 0.502 | 0.176 | 0.757 | 1.01s |
+| Mean Imputation (Baseline) | 0.524 | 0.186 | 0.734 | 0.13s |
 
 **Conclusion:** Item-based KNN delivered the highest accuracy, while SVD offered the best balance of speed and performance.
 
