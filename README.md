@@ -4,17 +4,22 @@
 
 This project provides a systematic comparison of several common collaborative filtering algorithms for recommendation systems. Using a sparse user-item rating matrix inspired by the Netflix dataset, this repository implements and evaluates models based on clustering, nearest neighbors, and matrix factorization. The entire analysis is contained within a single, reproducible Jupyter Notebook.
 
-## 📊 Key Findings
-| Algorithm | RMSE | MAE | R² Score | Training Time (s) |
-| :--- | :--- | :--- | :--- | :--- |
-| KNN Item-based | 0.467 | 0.160 | 0.789 | 12.11 |
-| EM Clustering | 0.484 | 0.169 | 0.773 | 6.82 |
-| KNN User-based | 0.498 | 0.173 | 0.760 | 9.47 |
-| Matrix Factorization (NMF) | 0.499 | 0.174 | 0.760 | 16.60 |
-| Matrix Factorization (SVD) | 0.502 | 0.176 | 0.757 | 0.81 |
-| Mean Imputation | 0.524 | 0.186 | 0.734 | 0.18 |
+## 📊 Performance Results
 
-**Conclusion:** Item-based KNN delivered the highest accuracy, while SVD offered the best balance of speed and performance.
+| Algorithm                  | RMSE  | MAE   | R² Score | Training Time (s) |
+| :------------------------- | :---- | :---- | :------- | :---------------- |
+| KNN Item-based             | 0.467 | 0.160 | 0.789    | 12.11             |
+| EM Clustering              | 0.484 | 0.169 | 0.773    | 6.82              |
+| KNN User-based             | 0.498 | 0.173 | 0.760    | 9.47              |
+| Matrix Factorization (NMF) | 0.499 | 0.174 | 0.760    | 16.60             |
+| Matrix Factorization (SVD) | 0.502 | 0.176 | 0.757    | 0.81              |
+| Mean Imputation            | 0.524 | 0.186 | 0.734    | 0.18              |
+
+## 🧠 Key Insights
+
+-   **Highest Accuracy:** `KNN Item-based` delivered the best predictive accuracy (lowest RMSE). This suggests that for this dataset, item-to-item similarity is a stronger signal than user-to-user similarity.
+-   **Best Speed-Accuracy Balance:** `Matrix Factorization (SVD)` offers the most pragmatic trade-off. It is over **20 times faster** than the NMF model while delivering highly competitive accuracy, making it an ideal choice for systems requiring rapid retraining.
+-   **Importance of Tuning:** The `NMF` model's performance improved dramatically after its `max_iter` parameter was increased to resolve a convergence warning, highlighting the critical impact of proper model tuning on final results.
 
 ## 🛠️ How to Run This Analysis
 
@@ -25,7 +30,7 @@ This project provides a systematic comparison of several common collaborative fi
 ### Installation
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/your-username/netflix-recommendation-engine.git
+    git clone https://github.com/pr-rithwik/netflix-recommendation-engine.git
     cd netflix-recommendation-engine
     ```
 2.  Create and activate a virtual environment:
@@ -42,7 +47,7 @@ This project provides a systematic comparison of several common collaborative fi
     jupyter notebook recommendation_analysis.ipynb
     ```
 
-## 🧠 Algorithms Implemented
+## 🤖 Algorithms Implemented
 
 - **Mean Imputation:** A simple baseline that fills missing values with the global average rating.
 - **EM Clustering (GMM):** Groups users into clusters and uses cluster-specific average ratings for prediction.
@@ -55,6 +60,7 @@ This project provides a systematic comparison of several common collaborative fi
 
 ## 📁 Repository Structure
 ```
+.
 ├── recommendation_analysis.ipynb # The main Jupyter Notebook with all code and analysis.
 ├── data/ # Contains the dataset files.
 ├── README.md # This file.
