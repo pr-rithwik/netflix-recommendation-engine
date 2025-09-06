@@ -15,6 +15,7 @@ logs/
 
 # working files
 main.ipynb
+local_run.py
 
 # folders
 extra/
